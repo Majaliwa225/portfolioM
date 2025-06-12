@@ -21,7 +21,19 @@
             overflow-x: hidden;
             position: relative;
         }
+        #telephone {
+  background-image: url('./images/LX570.jpg'); /* your actual image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
+  min-height: 100vh;       /* fills the full screen */
+  width: 100%;
+  overflow: hidden;        /* stops content from spilling out */
+  display: flex;           /* optional: helps align inner content */
+  flex-direction: column;  /* optional: adjust to your content layout */
+  justify-content: center; /* optional: center vertically */
+}
 
         body::before {
         content: '';

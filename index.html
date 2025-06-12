@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CDN -->
+    <title>BURHAN's  Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(239, 70, 70, 0.18)),
+            url('./images/LX570.jpg') center/cover no-repeat fixed;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+
+        body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(ellipse at top, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.2) 70%),
+            linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.25) 100%);
+        z-index: -2;
+        pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3b82f6;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        .nav-links a.active {
+            color: #ef4444;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #ef4444);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+.mobile-menu {
+  display: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;                 /* just under the navbar */
+  right: 2rem;               /* same padding as hamburger */
+  width: 200px;
+  background: rgba(0, 0, 0, 0.95);
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  z-index: 1001;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.mobile-nav.active {
+  display: flex;
+}
+
+.mobile-nav a {
+  font-size: 0.9rem;          /* smaller text */
+  padding: 0.5rem 0.75rem;    /* less space per link */
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav a:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+}
+        /* Page Content */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Home Page */
+        .hero {
+            display: flex;
+            align-items: center;
+            min-height: calc(100vh - 100px);
+            gap: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #3b82f6, #ef4444);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.2); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+        
+        .cta-button {
+        background: linear-gradient(145deg, #ef4444, #1f1f1f);   
+        color: #fff;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        text-decoration: none;
+        box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3),
+                 0 0 0 2px rgba(0, 0, 0, 0.2) inset;
+        transition: all 0.3s ease;
+        }
+
+       .cta-button:hover {
+        background: linear-gradient(145deg, #b91c1c, #111);
+        box-shadow: 0 12px 30px rgba(239, 68, 68, 0.5),
+                    0 0 0 2px rgba(255, 255, 255, 0.1) inset;
+        transform: scale(1.05);
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .profile-image {
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        object-fit: cover;
+        padding: 6px;
+        background: linear-gradient(135deg, #ef4444, #111);
+        box-shadow:
+            0 0 15px rgba(239, 68, 68, 0.5),
+            0 0 30px rgba(0, 0, 0, 0.5) inset;
+        animation: float 6s ease-in-out infinite;
+        transition: box-shadow 0.3s ease;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* About Page */
+        .about-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #3b82f6, #ef4444);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #cccccc;
+        }
+
+        .about-text h3 {
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Projects Page */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(30, 30, 30, 0.4);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(239, 68, 68, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #3b82f6;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* Thoughts Page */
+        .thoughts-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .thought-card {
+            background: rgba(0, 0, 0, 0.75);
+            border-left: 4px solid #ef4444;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0 10px 10px 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .thought-card:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 0 20px rgba(239, 68, 68, 0.2);
+        }
+
+        .thought-date {
+            color: #3b82f6;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .thought-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .thought-content {
+            color: #cccccc;
+            line-height: 1.8;
+        }
+
+        /* Contact Page */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #3b82f6;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            color: #ffffff;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ef4444;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+        }
+
+        .contact-info {
+            padding: 2rem 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(26, 26, 26, 0.5);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(239, 68, 68, 0.1);
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #ef4444);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .profile-image {
+                width: 300px;
+                height: 300px;
+            }
+
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .mobile-menu {
+  display: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  top: 60px;
+  right: 1rem;
+  left: 1rem;
+  border-radius: 10px;
+  padding: 1rem;
+  z-index: 1001;
+}
+
+.mobile-nav a {
+  color: white;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav.active {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+}
+    </style>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <!-- Navigation -->
+<nav>
+  <div class="nav-container">
+    <div class="logo">
+      <h1 style="font-size: 25px;">BURHAN MAJALIWA</h1>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('home')" class="nav-link active">HOME</a></li>
+      <li><a href="#" onclick="showPage('about')" class="nav-link">ABOUT ME</a></li>
+      <li><a href="#" onclick="showPage('projects')" class="nav-link">PROJECTS</a></li>
+      <li><a href="#" onclick="showPage('thoughts')" class="nav-link">MY THOUGHTS</a></li>
+      <li><a href="#" onclick="showPage('contact')" class="nav-link">CONTACT</a></li>
+    </ul>
+
+    <div class="mobile-menu">☰</div>
+
+  <div class="mobile-nav">
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('about')">About</a>
+    <a href="#" onclick="showPage('projects')">Projects</a>
+    <a href="#" onclick="showPage('thoughts')">Thoughts</a>
+    <a href="#" onclick="showPage('contact')">Contact</a>
+  </div>
+    </div>
+</nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <div class="container">
+            <div class="hero">
+                <div class="hero-content slide-in-left">
+                    <h1 class="hero-title">I'm Burhan Majaliwa</h1>
+                    <p class="hero-subtitle">
+                        Driven renewable energy engineer designing future-proof systems for a greener Africa. Blending innovation with practicality to unlock sustainable power
+                    </p>
+                    <p style="margin-top: 30px;"> </p>
+                     <div style="margin-top: 2rem;">
+  <a href="#" onclick="showPage('projects')" class="cta-button">View My Work</a>
+  <a href="./pdf/myCV.pdf" target="_blank" class="cta-button" style="margin-left: 1rem;">My CV</a>
+</div>
+                </div>
+               <div class="hero-image slide-in-right" style="position: relative;">
+    <img src="./images/mimiuyo1.png" alt="Burhan" style="
+    width: 100%;
+    max-width: 300px;
+    opacity: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #3b82f6;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    mix-blend-mode: lighten;
+    filter: drop-shadow(0 0 20px rgba(0,0,0,0.4));
+    animation: float 2.5s ease-in-out infinite;
+
+    /** ADD THESE: **/
+    position: relative;
+    z-index: 5;
+">
+
+</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <div class="container">
+            <div class="about-section fade-in">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Hello! I'm Burhan</h3>
+                        <p>
+                            a Renewable Energy Engineering student driven by the goal of reshaping Africa’s energy future. I’m passionate about developing clean, efficient, and locally relevant solutions, especially in Hydrogen Combustion systems.
+                        </p>
+                        <p>
+                            I’m building the foundation for my own future power company and exploring low-competition, high-impact ventures that can uplift communities. Whether I’m innovating around sustainability, launching a small business, or just sketching the next big idea, I stay rooted in purpose and ready to lead change.
+                        </p>
+                        <p>
+                            Right now, I’m focused on mastering both the tech and the strategy behind energy systems, while also testing ideas across agriculture, urban living, and digital services. This portfolio is a window into my journey.
+                        </p>
+                    </div>
+                    <div class="skills-section">
+                        <h3 style="color: #ef4444; margin-bottom: 1.5rem;">My Skills</h3>
+                        <div class="skills-grid">
+                            <div class="skill-item">Energy Systems Analysis</div>
+                            <div class="skill-item">Combustion Analysis</div>
+                            <div class="skill-item">Steam Systems Analysis</div>
+                            <div class="skill-item">AutoCAD (2D & 3D Drafting)</div>
+                            <div class="skill-item">Project Development & Planning</div>
+                            <div class="skill-item">Project Documentation & Proposal Writing</div>
+                            <div class="skill-item">Leadership & Team Management</div>
+                            <div class="skill-item">Communication & Social Skills</div>
+                            <div class="skill-item">Additional Driving Skills</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Page -->
+    <div id="projects" class="page">
+        <div class="container">
+            <div class="fade-in">
+                <h2 class="section-title">Projects & Businesses</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">H2 ICE Integrated System</h3>
+                        <p class="project-description">
+                            A next-gen hydrogen internal combustion engine (H2-ICE) system engineered to generate clean, off-grid electricity. This project integrates Waste Heat Recovery Systems (WHRS) and an Exhaust Heat Recovery Unit to boost thermal efficiency and reduce fuel losses. Designed as a scalable micro power plant for rural or decentralized applications, the system captures exhaust heat to produce additional power or thermal energy—maximizing sustainability, minimizing waste.
+                            </p>
+                        <p> 
+                            Key Features:
+                        </p>
+                        <p>
+                            1. Hydrogen-fueled ICE core for clean combustion and near-zero carbon emissions
+                        </p>
+                        <p>
+                            2. Integrated WHRS for recovering and reusing engine heat losses
+                        </p>
+                        <p>
+                            3. Exhaust Heat Recovery Unit for powering auxiliary systems or preheating processes
+                            </p>
+                        <p style="margin-top: 30px;"> </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">H2-ICE</span>
+                            <span class="tech-tag">Cyclone-WHRS</span>
+                            <span class="tech-tag">Exhaust Heat Recovery</span>
+                            <span class="tech-tag">Power-Generation</span>
+                            <span class="tech-tag">Efficiency</span>
+                        </div>
+                        <div class="project-links">
+                            <p>Language: English</p>
+                            <a href="./pdf/powerplant.pdf" class="project-link" target="_blank">Project Writting</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title">Automated Irrigation System</h3>
+                        <p class="project-description">
+                            A precision irrigation solution designed to optimize water usage using real-time soil moisture and environmental sensors. The system automates watering schedules based on live data, reducing water waste and improving crop health. Powered by microcontrollers (Arduino/PIC/etc.), the setup includes sensors, relays, a water pump, and a control logic system—engineered to serve both smallholder and commercial farms.
+                            </p>
+
+                            <p>Key Features:</p>
+
+                            <p>1. Soil moisture sensing</p>
+
+                            <p>2. Automated pump activation & valve control</p>
+
+                            <p>3. Low-power design for solar integration</p>
+
+                            <p>4. Customizable thresholds and irrigation logic</p>
+
+                            <p>5. Scalable for gardens, greenhouses, and open fields</p>
+                        <p style="margin-top: 30px;"> </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">IoTinAgriculture</span>
+                            <span class="tech-tag">PrecisionAgriculture</span>
+                            <span class="tech-tag">EmbeddedSystems</span>
+                            <span class="tech-tag">AgroTechSolutions</span>
+                        </div>
+                        <div class="project-links">
+                            <p>Language: English</p>
+                            <a href="./pdf/irrigation.pdf" class="project-link" target="_blank">Project Writting</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title">DUSAC-Organization</h3>
+                        <p class="project-description">
+                            DUSAC is a Pan-African industrial initiative dedicated to uniting essential systems that fuel economic resilience and technological independence across the continent. Its core mission is to establish and run integrated industries in key sectors—Food & Beverages, Medical & Health, Electronics Assembly, and Education & Scientific Labs—while generating and managing its own sustainable power.
+
+By building an ecosystem where production, innovation, and utilities are internally aligned, DUSAC aims to reduce dependency on imports, create employment opportunities, and boost Africa’s global competitiveness.
+                        </p>
+                        <p>Main Strategic Focus: </p>
+                        <p>1. Food & Beverage Processing Plants</p>
+                        <p>2. Medical & Health industries</p>
+                        <p>3. Electronics Assembly Units</p>
+                        <p>4. Self Power Operation</p>
+                        <p style="margin-top: 30px;"> </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">AfricanIndustrialRevolution</span>
+                            <span class="tech-tag">SustainableManufacturing</span>
+                            <span class="tech-tag">TechDrivenAfrica</span>
+                            <span class="tech-tag">BuildAfricaByAfricans</span>
+                        </div>
+                        <div class="project-links">
+                            <p>Language: English</p>
+                            <a href="./images/INITIAL POSTER.jpg" class="project-link" target="_blank">Overview-Post</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title">Milk-LA VIDA</h3>
+                        <p class="project-description">
+                            Milk La-Vida is a modern milk distribution brand dedicated to delivering fresh, hygienic, and accessible dairy products using an automated, tech-powered model. Built on quality, convenience, and community health, the system integrates milk pasteurization, cold storage, and ATM-style vending machines to ensure customers get clean milk 24/7 — without middlemen or spoilage risks.
+
+Operating on a decentralized model, Milk La-Vida empowers local dairy farmers by purchasing directly from them, processing the milk at hygienic micro-units, and vending it in urban and peri-urban areas through solar-powered milk ATMs. Customers pay per liter using mobile money, making it both cashless and accessible.
+                        </p>
+                        <p>Uniqueness:</p>
+
+                            <p>1. Direct Farm-to-Cup Delivery</p>
+
+                            <p>2. Cold Chain Guarantee</p>
+
+                            <p>3. ATM Vending + Mobile Payment</p>
+
+                            <p>4. Low Waste, High Efficiency</p>
+
+                            <p>5. Community-Focused</p>
+                        <p style="margin-top: 30px;"> </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">LA VIDA</span>
+                            <span class="tech-tag">Pure</span>
+                            <span class="tech-tag">Smart</span>
+                            <span class="tech-tag">Local</span>
+                        </div>
+                        <div class="project-links">
+                            <p>Language: Swahili</p>
+                            <a href="./pdf/MILK LA-VIDA.pdf" class="project-link" target="_blank">Project Writting</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title">Bledi-LA VIDA</h3>
+                        <p class="project-description">
+                            Blendi La Vida is a vibrant smoothie brand committed to blending health, flavor, and lifestyle into every cup. Designed for the urban African youth and wellness-conscious consumers, Blendi La Vida offers fresh, nutrient-packed smoothies made from locally sourced fruits, herbs, and superfoods — served fast, affordable, and eco-friendly.
+
+From energizing morning blends to post-gym power-ups, each smoothie is crafted with real ingredients, zero additives, and a focus on natural vitality. The brand operates through flexible models: walk-in kiosks, delivery-ready setups, and future-ready smoothie vending systems, bringing wellness straight to the streets, campuses, and offices.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">LocalIngredients</span>
+                            <span class="tech-tag">SmartService</span>
+                            <span class="tech-tag">AfroBrand</span>
+                            <span class="tech-tag">LifestyleFit</span>
+                        </div>
+                        <div class="project-links">
+                            <p>Language: Swahili</p>
+                            <a href="./pdf/BLENDI LA-VIDA.pdf" class="project-link" target="_blank">Project Writting</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thoughts Page -->
+    <div id="thoughts" class="page">
+        <div class="container">
+            <div class="thoughts-container fade-in">
+                <h2 class="section-title">My Thoughts</h2>
+                
+                <article class="thought-card">
+                    <div class="thought-date">Sep, 2024</div>
+                    <h3 class="thought-title">The Future of H2-ICE: What's Coming Next?</h3>
+                    <div class="thought-content">
+                        <p>As we move deeper into 2025, I’m energized by the rapid evolution of clean energy systems. Hydrogen Internal Combustion Engines (H₂-ICE) are reshaping how we approach sustainable power — offering a practical, low-carbon alternative to traditional fossil-fueled engines. With integrated waste heat recovery and compatibility with decentralized energy systems, H₂-ICE brings a powerful balance between familiar engineering and futuristic fuel. The mission now is to scale this tech in a way that aligns with industrial needs — keeping efficiency, reliability, and accessibility at the core.</p>
+                    </div>
+                </article>
+
+                <article class="thought-card">
+                    <div class="thought-date">Apr, 2022</div>
+                    <h3 class="thought-title">Irrigation System: Expectations</h3>
+                    <div class="thought-content">
+                        <p>My personal goal is to see more African farmers using this system to ensure high crop availability and reduce price spikes caused by crop shortages due to various reasons including weather. This system will be run by an institution that will oversee all adjustments required by farmers according to these systems, and will also be responsible for managing the availability and improvements of packages that will contain data on how crops will be managed. In addition, if there are customers with specific needs, then the company will be involved in designing a package that suits the customer</p>
+                        <p style="margin-top: 30px;"> </p>
+                        <p> “It’s not just smart irrigation — it’s a lifelong farming assistant built around you.”</p>
+                    </div>
+                </article>
+
+                <article class="thought-card">
+                    <div class="thought-date">May, 2019</div>
+                    <h3 class="thought-title">DUSAC Organization</h3>
+                    <div class="thought-content">
+                        <p>DUSAC - Drive to Unite Systems for African Competitiveness, dusac is the Organization that will run various projects and will allow investors to invest in shares. I have high expectations of seeing the future of Africa doing great things within the nation to reduce the cost of various services while increasing employment opportunities. This organization aims to capture areas that until now in Africa are not competitive or have very little competition, the main goal is to put projects that will make a mark and leave a big and sustainable impact.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <div class="container">
+            <div class="fade-in">
+                <h2 class="section-title">Let's Work Together</h2>
+                <div class="contact-container">
+                    <div class="contact-form">
+                       <h3 style="color: #3b82f6; margin-bottom: 1.5rem;">Send Me a Message</h3>
+
+<form id="contact-form">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" required>
+    </div>
+    <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="cta-button" style="width: 100%;">Send Message</button>
+</form>
+
+<!-- Optional success message -->
+<div id="success-msg" style="display: none; color: green; margin-top: 1rem;">
+  ✅ Your message has been sent successfully!
+</div>
+
+<!-- JS to handle background submission -->
+<script>
+  const form = document.getElementById('contact-form');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault(); // Prevent page reload
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('https://formspree.io/f/mnnvdzbb', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        document.getElementById('success-msg').style.display = 'block';
+        form.reset();
+      } else {
+        alert("⚠️ Something went wrong.");
+      }
+    } catch (error) {
+      alert("❌ Error sending message.");
+    }
+  });
+</script>
+                        
+                    </div>
+
+                    <div class="contact-info">
+                        <h3 style="color: #ef4444; margin-bottom: 2rem;">Get In Touch</h3>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>burhanmajaliwa12@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📱</div>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+(255)-783733440</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Dar-es-salam</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">💼</div>
+                            <div>
+                                <h4>Availability</h4>
+                                <p>Development and investment matters</p>
+                            </div>
+                        </div>
+
+                       <div class="social-links">
+    <a href="https://wa.me/255783733440" target="_blank" style="
+  background-color: #25D366;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  display: inline-block;
+">
+  WhatsApp
+</a>
+
+                           <!-- LinkedIn -->
+<a href="https://www.linkedin.com/in/majaliwa-burhan-b06454362/" target="_blank" style="
+  background-color: #0077B5;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  display: inline-block;
+  margin: 2px;
+">
+  LinkedIn
+</a>
+
+<!-- Instagram -->
+<a href="https://instagram.com/the_real_burhan" target="_blank" style="
+  background-color: #E1306C;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  display: inline-block;
+  margin: 5px;
+">
+  Instagram
+</a>
+
+<!-- Facebook -->
+<a href="https://www.facebook.com/profile.php?id=100076016173664" target="_blank" style="
+  background-color: #1877F2;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  display: inline-block;
+  margin: 5px;
+">
+  Facebook
+</a>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+    function showPage(pageId) {
+        alert("Pretend we're showing the page: " + pageId);
+    }
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Find and activate the clicked nav link
+            const clickedLink = event ? event.target : document.querySelector(`[onclick="showPage('${pageId}')"]`);
+            if (clickedLink) {
+                clickedLink.classList.add('active');
+            }
+
+            // Add animation class to new page
+            const activePage = document.getElementById(pageId);
+            activePage.classList.add('fade-in');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Smooth scrolling for scroll indicator
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            window.scrollBy({
+                top: window.innerHeight - 100,
+                behavior: 'smooth'
+            });
+        });
+
+        // Form submission handling
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+
+            // Simple form validation and success message
+            if (name && email && subject && message) {
+                alert(`Thank you, ${name}! Your message has been sent successfully. I'll get back to you soon.`);
+                this.reset();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        // Mobile menu functionality
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', function() {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.background = 'rgba(26, 26, 26, 0.95)';
+            navLinks.style.padding = '1rem';
+            navLinks.style.backdropFilter = 'blur(10px)';
+        });
+
+        // Add scroll animations
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.project-card, .thought-card, .skill-item');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.animation = 'fadeIn 0.6s ease-in forwards';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set home as active page
+            showPage('home');
+            
+            // Initialize scroll animations
+            animateOnScroll();
+
+            // Add typewriter effect to hero title
+            const heroTitle = document.querySelector('.hero-title');
+            const text = heroTitle.textContent;
+            heroTitle.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < text.length) {
+                    heroTitle.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            // Start typewriter effect after a short delay
+            setTimeout(typeWriter, 500);
+
+            // Add random floating particles
+            createFloatingParticles();
+        });
+
+        // Create floating particles effect
+        function createFloatingParticles() {
+            const particleContainer = document.createElement('div');
+            particleContainer.style.position = 'fixed';
+            particleContainer.style.top = '0';
+            particleContainer.style.left = '0';
+            particleContainer.style.width = '100%';
+            particleContainer.style.height = '100%';
+            particleContainer.style.pointerEvents = 'none';
+            particleContainer.style.zIndex = '-1';
+            document.body.appendChild(particleContainer);
+
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = Math.random() > 0.5 ? 
+                    'rgba(59, 130, 246, 0.3)' : 'rgba(239, 68, 68, 0.3)';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // Random animation
+                const duration = Math.random() * 20 + 10;
+                particle.style.animation = `float ${duration}s ease-in-out infinite, 
+                                          fadeIn 2s ease-in-out infinite alternate`;
+                
+                particleContainer.appendChild(particle);
+            }
+        }
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animatable elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatableElements = document.querySelectorAll(
+                '.project-card, .thought-card, .contact-item, .about-text, .skills-grid'
+            );
+            
+            animatableElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Add mouse trail effect
+        let mouseTrail = [];
+        document.addEventListener('mousemove', function(e) {
+            mouseTrail.push({x: e.clientX, y: e.clientY, time: Date.now()});
+            
+            // Limit trail length
+            if (mouseTrail.length > 15) {
+                mouseTrail.shift();
+            }
+            
+            // Remove old trail points
+            mouseTrail = mouseTrail.filter(point => Date.now() - point.time < 1000);
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const pages = ['home', 'about', 'projects', 'thoughts', 'contact'];
+            const currentPageElement = document.querySelector('.page.active');
+            const currentPageId = currentPageElement.id;
+            const currentIndex = pages.indexOf(currentPageId);
+            
+            if (e.key === 'ArrowRight' && currentIndex < pages.length - 1) {
+                showPage(pages[currentIndex + 1]);
+            } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                showPage(pages[currentIndex - 1]);
+            }
+        });
+
+        // Add dynamic theme based on time
+        function updateThemeBasedOnTime() {
+            const hour = new Date().getHours();
+            const body = document.body;
+            
+            if (hour >= 6 && hour < 18) {
+                // Day theme - slightly lighter
+                body.style.filter = 'brightness(1.1)';
+            } else {
+                // Night theme - slightly darker
+                body.style.filter = 'brightness(0.9)';
+            }
+        }
+
+        // Update theme on load and every hour
+        updateThemeBasedOnTime();
+        setInterval(updateThemeBasedOnTime, 3600000);
+
+        // Add Easter egg - Konami code
+        let konamiCode = [];
+        const konamiSequence = [
+            'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+            'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+            'KeyB', 'KeyA'
+        ];
+
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.code);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
+                // Easter egg activated!
+                document.body.style.animation = 'rainbow 2s linear infinite';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 5000);
+                
+                // Add rainbow animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes rainbow {
+                        0% { filter: hue-rotate(0deg); }
+                        100% { filter: hue-rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                konamiCode = [];
+            }
+        });
+    </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const menuBtn = document.querySelector('.mobile-menu');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileLinks = document.querySelectorAll('.mobile-nav a');
+
+    // Toggle menu on hamburger click
+    menuBtn.addEventListener('click', function () {
+      mobileNav.classList.toggle('active');
+    });
+
+    // Auto-collapse menu after clicking a link
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function () {
+        mobileNav.classList.remove('active');
+      });
+    });
+  });
+</script>
+</body>
+</html>

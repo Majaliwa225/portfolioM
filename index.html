@@ -636,6 +636,43 @@
     display: block;
   }
 }
+@media (max-width: 768px) {
+  #contact .container {
+    padding: 0;
+  }
+
+  .contact-container {
+    display: flex !important;
+    flex-direction: column;
+    padding: 0 1rem;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .contact-form, .contact-info {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .social-links a {
+    display: block !important;
+    width: 100% !important;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.8rem 1rem !important;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+}
     </style>
 </head>
 <body>

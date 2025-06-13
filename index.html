@@ -13,36 +13,52 @@
         }
 
         /* 🌆 Global Background Layer */
+body {
+margin: 0;
+padding: 0;
+background: none;
+position: relative;
+min-height: 100vh;
+overflow-x: hidden;
+color: #fff;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .global-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(239, 70, 70, 0.18)),
-              url('./images/LX570.jpg') center/cover no-repeat;
-  background-attachment: scroll;
-  z-index: -10;
-  pointer-events: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(239, 70, 70, 0.18)),
+url('./images/LX570.jpg') center/cover no-repeat;
+background-attachment: scroll;
+z-index: -10;
+pointer-events: none;
 }
 
 .global-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at top, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.2) 70%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.25) 100%);
-  backdrop-filter: blur(2px);
+content: '';
+position: absolute;
+inset: 0;
+background:
+radial-gradient(ellipse at top, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.2) 70%),
+linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.25) 100%);
+backdrop-filter: blur(2px);
 }
-        body {
-  background: none;
-  color: #fff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  overflow-x: hidden;
-  position: relative;
-  min-height: 100vh;
+
+/* New wrapper to ensure all content stays above background */
+.page-wrapper {
+position: relative;
+z-index: 1;
+width: 100%;
+}
+
+/* Every page section (home, about, contact) gets same spacing */
+.page {
+padding: 4rem 1rem;
+min-height: 100vh;
+box-sizing: border-box;
 }
         
         .container {
@@ -761,7 +777,7 @@
 </head>
 <body>
     <div class="global-bg"></div>
-    
+    <main class="page-wrapper">
     <!-- Navigation -->
 <nav>
   <div class="nav-container">
@@ -790,7 +806,7 @@
 </nav>
 
     <!-- Home Page -->
-    <div id="home" class="page active">
+    <div id="home" class="page">
         <div class="container">
             <div class="hero">
                 <div class="hero-content slide-in-left">

@@ -531,46 +531,6 @@ body::before {
             transform: scale(1.1);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: flex;
-            }
-
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                gap: 2rem;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .profile-image {
-                width: 300px;
-                height: 300px;
-            }
-
-            .about-content,
-            .contact-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .container {
-                padding: 0 15px;
-            }
-        }
-
         /* Animations */
         .fade-in {
             animation: fadeIn 1s ease-in;
@@ -628,19 +588,54 @@ body::before {
 .mobile-nav.active {
   display: flex;
 }
+/* ================================
+   🌐 DESKTOP & BASE STYLES (default)
+   ================================ */
+/* These are already set in your main CSS.
+   No media query needed — they apply to laptops/desktops by default. */
 
+
+
+/* =====================================
+   📱 MAIN MOBILE LAYOUT (Phones & Tablets)
+   Breakpoint: 768px and below
+   ===================================== */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
   }
 
   .mobile-menu {
-    display: block;
+    display: flex;
   }
-}
-        @media (max-width: 768px) {
-  #contact .container {
-    padding: 0;
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .profile-image {
+    width: 300px;
+    height: 300px;
+  }
+
+  .about-content,
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 15px;
   }
 
   .contact-container {
@@ -655,23 +650,105 @@ body::before {
   .contact-form, .contact-info {
     width: 100%;
   }
-}
-        @media (max-width: 768px) {
+
   .social-links {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
+    padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .social-links a {
     display: block !important;
     width: 100% !important;
-    text-align: center;
-    font-size: 1rem;
     padding: 0.8rem 1rem !important;
+    font-size: 1rem;
+    text-align: center;
     box-sizing: border-box;
-    border-radius: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 6px;
+  }
+}
+
+
+
+/* =====================================
+   📲 SMALL SCREENS (Narrow Phones like Galaxy S8, SE)
+   Breakpoint: 650px and below
+   ===================================== */
+@media (max-width: 650px) {
+  .cta-button {
+    width: 100% !important;
+    display: block !important;
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+  }
+
+  .hero .cta-button + .cta-button {
+    margin-left: 0 !important;
+  }
+
+  .hero .cta-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+}
+
+
+
+/* =====================================
+   📟 EXTRA SMALL DEVICES (iPhone SE, low-end Androids)
+   Breakpoint: 480px and below
+   ===================================== */
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .contact-form h3,
+  .contact-info h3 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .form-group label {
+    font-size: 0.95rem;
+  }
+
+  input,
+  textarea {
+    font-size: 1rem;
+  }
+
+  #success-msg {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+}
+
+
+
+/* =====================================
+   🖥️ OPTIONAL: WIDE SCREENS (Large Desktops)
+   Breakpoint: 1200px and up
+   ===================================== */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 }
     </style>

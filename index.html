@@ -181,10 +181,16 @@ box-sizing: border-box;
 }
         /* Page Content */
         .page {
-            display: none;
-            min-height: 100vh;
-            padding-top: 100px;
-        }
+  display: none;
+  min-height: 100vh;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+
+/* ✅ Show Home section by default */
+#home {
+  display: block;
+}
 
         .page.active {
             display: block;
@@ -1505,6 +1511,9 @@ From energizing morning blends to post-gym power-ups, each smoothie is crafted w
       });
     });
   });
+    document.addEventListener("DOMContentLoaded", function () {
+  showPage('home');
+});
 </script>
 </body>
 </html>

@@ -12,30 +12,55 @@
             box-sizing: border-box;
         }
 
-        body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(239, 70, 70, 0.18)),
-            url('./images/LX570.jpg') center/cover no-repeat fixed;
-            color: #ffffff;
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: 
-            radial-gradient(ellipse at top, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.2) 70%),
-            linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.25) 100%);
-        z-index: -2;
-        pointer-events: none;
-        }
+        /* 🌆 Global Background Layer */
+body {
+margin: 0;
+padding: 0;
+background: none;
+position: relative;
+min-height: 100vh;
+overflow-x: hidden;
+color: #fff;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+.global-bg {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(239, 70, 70, 0.18)),
+url('./images/LX570.jpg') center/cover no-repeat;
+background-attachment: scroll;
+z-index: -10;
+pointer-events: none;
+}
+
+.global-bg::after {
+content: '';
+position: absolute;
+inset: 0;
+background:
+radial-gradient(ellipse at top, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.2) 70%),
+linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.25) 100%);
+backdrop-filter: blur(2px);
+}
+
+/* New wrapper to ensure all content stays above background */
+.page-wrapper {
+position: relative;
+z-index: 1;
+width: 100%;
+}
+
+/* Every page section (home, about, contact) gets same spacing */
+.page {
+padding: 4rem 1rem;
+min-height: 100vh;
+box-sizing: border-box;
+}
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -156,10 +181,16 @@
 }
         /* Page Content */
         .page {
-            display: none;
-            min-height: 100vh;
-            padding-top: 100px;
-        }
+  display: none;
+  min-height: 100vh;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+
+/* ✅ Show Home section by default */
+#home {
+  display: block;
+}
 
         .page.active {
             display: block;
@@ -528,46 +559,6 @@
             transform: scale(1.1);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: flex;
-            }
-
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                gap: 2rem;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .profile-image {
-                width: 300px;
-                height: 300px;
-            }
-
-            .about-content,
-            .contact-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .container {
-                padding: 0 15px;
-            }
-        }
-
         /* Animations */
         .fade-in {
             animation: fadeIn 1s ease-in;
@@ -625,19 +616,54 @@
 .mobile-nav.active {
   display: flex;
 }
+/* ================================
+   🌐 DESKTOP & BASE STYLES (default)
+   ================================ */
+/* These are already set in your main CSS.
+   No media query needed — they apply to laptops/desktops by default. */
 
+
+
+/* =====================================
+   📱 MAIN MOBILE LAYOUT (Phones & Tablets)
+   Breakpoint: 768px and below
+   ===================================== */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
   }
 
   .mobile-menu {
-    display: block;
+    display: flex;
   }
-}
-        @media (max-width: 768px) {
-  #contact .container {
-    padding: 0;
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .profile-image {
+    width: 300px;
+    height: 300px;
+  }
+
+  .about-content,
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 15px;
   }
 
   .contact-container {
@@ -652,30 +678,112 @@
   .contact-form, .contact-info {
     width: 100%;
   }
-}
-        @media (max-width: 768px) {
+
   .social-links {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
+    padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .social-links a {
     display: block !important;
     width: 100% !important;
-    text-align: center;
-    font-size: 1rem;
     padding: 0.8rem 1rem !important;
+    font-size: 1rem;
+    text-align: center;
     box-sizing: border-box;
-    border-radius: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 6px;
+  }
+}
+
+
+
+/* =====================================
+   📲 SMALL SCREENS (Narrow Phones like Galaxy S8, SE)
+   Breakpoint: 650px and below
+   ===================================== */
+@media (max-width: 650px) {
+  .cta-button {
+    width: 100% !important;
+    display: block !important;
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+  }
+
+  .hero .cta-button + .cta-button {
+    margin-left: 0 !important;
+  }
+
+  .hero .cta-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+}
+
+
+
+/* =====================================
+   📟 EXTRA SMALL DEVICES (iPhone SE, low-end Androids)
+   Breakpoint: 480px and below
+   ===================================== */
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .contact-form h3,
+  .contact-info h3 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .form-group label {
+    font-size: 0.95rem;
+  }
+
+  input,
+  textarea {
+    font-size: 1rem;
+  }
+
+  #success-msg {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+}
+
+
+
+/* =====================================
+   🖥️ OPTIONAL: WIDE SCREENS (Large Desktops)
+   Breakpoint: 1200px and up
+   ===================================== */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 }
     </style>
 </head>
 <body>
-    <div class="background-overlay"></div>
-    
+    <div class="global-bg"></div>
+    <main class="page-wrapper">
     <!-- Navigation -->
 <nav>
   <div class="nav-container">
@@ -704,7 +812,7 @@
 </nav>
 
     <!-- Home Page -->
-    <div id="home" class="page active">
+    <div id="home" class="page">
         <div class="container">
             <div class="hero">
                 <div class="hero-content slide-in-left">
@@ -1126,30 +1234,33 @@ From energizing morning blends to post-gym power-ups, each smoothie is crafted w
     <script>
         // Navigation functionality
     function showPage(pageId) {
-        alert("Pretend we're showing the page: " + pageId);
-    }
-        function showPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => {
+    page.classList.remove('active');
+  });
 
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
+  document.getElementById(pageId).classList.add('active');
 
-            // Update navigation
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Find and activate the clicked nav link
-            const clickedLink = event ? event.target : document.querySelector(`[onclick="showPage('${pageId}')"]`);
-            if (clickedLink) {
-                clickedLink.classList.add('active');
-            }
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+  });
 
+  let clickedLink = null;
+  if (typeof event !== 'undefined' && event !== null) {
+    clickedLink = event.target;
+  } else {
+    clickedLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+  }
+
+  if (clickedLink) {
+    clickedLink.classList.add('active');
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  showPage('home');
+});
             // Add animation class to new page
             const activePage = document.getElementById(pageId);
             activePage.classList.add('fade-in');
@@ -1403,6 +1514,9 @@ From energizing morning blends to post-gym power-ups, each smoothie is crafted w
       });
     });
   });
+    document.addEventListener("DOMContentLoaded", function () {
+  showPage('home', null);
+});
 </script>
 </body>
 </html>

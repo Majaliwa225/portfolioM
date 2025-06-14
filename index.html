@@ -56,9 +56,15 @@ width: 100%;
 
 /* Every page section (home, about, contact) gets same spacing */
 .page {
-padding: 4rem 1rem;
-min-height: 100vh;
-box-sizing: border-box;
+  display: none;
+  padding: 4rem 1rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Show home page by default */
+#home {
+  display: block;
 }
         
         .container {
@@ -184,14 +190,7 @@ box-sizing: border-box;
   display: none;
   min-height: 100vh;
   padding-top: 100px;
-  box-sizing: border-box;
 }
-
-/* ✅ Show Home section by default */
-#home {
-  display: block;
-}
-
         .page.active {
             display: block;
         }
@@ -792,21 +791,21 @@ box-sizing: border-box;
     </div>
 
     <ul class="nav-links">
-      <li><a href="#" onclick="showPage('home', event)" class="nav-link active">HOME</a></li>
-      <li><a href="#" onclick="showPage('about', event)" class="nav-link">ABOUT ME</a></li>
-      <li><a href="#" onclick="showPage('projects', event)" class="nav-link">PROJECTS</a></li>
-      <li><a href="#" onclick="showPage('thoughts', event)" class="nav-link">MY THOUGHTS</a></li>
-      <li><a href="#" onclick="showPage('contact', event)" class="nav-link">CONTACT</a></li>
+      <li><a href="#" onclick="showPage('home')" class="nav-link active">HOME</a></li>
+      <li><a href="#" onclick="showPage('about')" class="nav-link">ABOUT ME</a></li>
+      <li><a href="#" onclick="showPage('projects')" class="nav-link">PROJECTS</a></li>
+      <li><a href="#" onclick="showPage('thoughts')" class="nav-link">MY THOUGHTS</a></li>
+      <li><a href="#" onclick="showPage('contact')" class="nav-link">CONTACT</a></li>
     </ul>
 
     <div class="mobile-menu">☰</div>
 
   <div class="mobile-nav">
-    <a href="#" onclick="showPage('home', event)">Home</a>
-    <a href="#" onclick="showPage('about', event)">About</a>
-    <a href="#" onclick="showPage('projects', event)">Projects</a>
-    <a href="#" onclick="showPage('thoughts', event)">Thoughts</a>
-    <a href="#" onclick="showPage('contact', event)">Contact</a>
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('about')">About</a>
+    <a href="#" onclick="showPage('projects')">Projects</a>
+    <a href="#" onclick="showPage('thoughts')">Thoughts</a>
+    <a href="#" onclick="showPage('contact')">Contact</a>
   </div>
     </div>
 </nav>
@@ -1233,7 +1232,7 @@ From energizing morning blends to post-gym power-ups, each smoothie is crafted w
 
     <script>
         // Navigation functionality
-    function showPage(pageId, event = null) {
+   function showPage(pageId) {
   const pages = document.querySelectorAll('.page');
   pages.forEach(page => {
     page.classList.remove('active');
@@ -1246,23 +1245,10 @@ From energizing morning blends to post-gym power-ups, each smoothie is crafted w
     link.classList.remove('active');
   });
 
-  let clickedLink = null;
-  if (event && event.target) {
-    clickedLink = event.target;
-  } else {
-    clickedLink = document.querySelector(`[onclick*="showPage('${pageId}'"]`);
-  }
-
+  const clickedLink = event ? event.target : document.querySelector(`[onclick="showPage('${pageId}')"]`);
   if (clickedLink) {
     clickedLink.classList.add('active');
   }
-
-  // Add animation to new page
-  const activePage = document.getElementById(pageId);
-  activePage.classList.add('fade-in');
-
-  // Scroll to top
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
             // Add animation class to new page
             const activePage = document.getElementById(pageId);

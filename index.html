@@ -1234,30 +1234,33 @@ From energizing morning blends to post-gym power-ups, each smoothie is crafted w
     <script>
         // Navigation functionality
     function showPage(pageId) {
-        alert("Pretend we're showing the page: " + pageId);
-    }
-        function showPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => {
+    page.classList.remove('active');
+  });
 
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
+  document.getElementById(pageId).classList.add('active');
 
-            // Update navigation
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Find and activate the clicked nav link
-            const clickedLink = event ? event.target : document.querySelector(`[onclick="showPage('${pageId}')"]`);
-            if (clickedLink) {
-                clickedLink.classList.add('active');
-            }
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+  });
 
+  let clickedLink = null;
+  if (typeof event !== 'undefined' && event !== null) {
+    clickedLink = event.target;
+  } else {
+    clickedLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+  }
+
+  if (clickedLink) {
+    clickedLink.classList.add('active');
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  showPage('home');
+});
             // Add animation class to new page
             const activePage = document.getElementById(pageId);
             activePage.classList.add('fade-in');

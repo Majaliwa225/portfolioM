@@ -180,17 +180,15 @@ box-sizing: border-box;
   }
 }
         /* Page Content */
-        .page {
-  display: none;
-  min-height: 100vh;
-  padding-top: 100px;
-  box-sizing: border-box;
-}
+         .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 100px;
+        }
 
-/* ✅ Show Home section by default */
-#home {
-  display: block;
-}
+        .page.active {
+            display: block;
+        }
 
 
         /* Home Page */
@@ -1230,34 +1228,28 @@ From energizing morning blends to post-gym power-ups, each smoothie is crafted w
 
     <script>
         // Navigation functionality
-    function showPage(pageId) {
-  const pages = document.querySelectorAll('.page');
-  pages.forEach(page => {
-    page.classList.remove('active');
-  });
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
 
-  document.getElementById(pageId).classList.add('active');
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
 
-  const navLinks = document.querySelectorAll('.nav-link');
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-  });
+            // Update navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Find and activate the clicked nav link
+            const clickedLink = event ? event.target : document.querySelector(`[onclick="showPage('${pageId}')"]`);
+            if (clickedLink) {
+                clickedLink.classList.add('active');
+            }
 
-  let clickedLink = null;
-  if (typeof event !== 'undefined' && event !== null) {
-    clickedLink = event.target;
-  } else {
-    clickedLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
-  }
-
-  if (clickedLink) {
-    clickedLink.classList.add('active');
-  }
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  showPage('home');
-});
             // Add animation class to new page
             const activePage = document.getElementById(pageId);
             activePage.classList.add('fade-in');
@@ -1273,6 +1265,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 behavior: 'smooth'
             });
         });
+
 
         // Form submission handling
         document.querySelector('form').addEventListener('submit', function(e) {
@@ -1511,6 +1504,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
+    document.addEventListener("DOMContentLoaded", function () {
+  showPage('home');
+    });
 </script>
 </body>
 </html>

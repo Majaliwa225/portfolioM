@@ -56,9 +56,9 @@ width: 100%;
 
 /* Every page section (home, about, contact) gets same spacing */
 .page {
-  display: none;
-  min-height: 100vh;
-  padding-top: 100px;
+padding: 4rem 1rem;
+min-height: 100vh;
+box-sizing: border-box;
 }
         
         .container {
@@ -184,10 +184,14 @@ width: 100%;
   display: none;
   min-height: 100vh;
   padding-top: 100px;
+  box-sizing: border-box;
 }
-        .page.active {
-            display: block;
-        }
+
+/* ✅ Show Home section by default */
+#home {
+  display: block;
+}
+
 
         /* Home Page */
         .hero {
@@ -1226,7 +1230,7 @@ From energizing morning blends to post-gym power-ups, each smoothie is crafted w
 
     <script>
         // Navigation functionality
-   function showPage(pageId) {
+    function showPage(pageId) {
   const pages = document.querySelectorAll('.page');
   pages.forEach(page => {
     page.classList.remove('active');
@@ -1239,11 +1243,21 @@ From energizing morning blends to post-gym power-ups, each smoothie is crafted w
     link.classList.remove('active');
   });
 
-  const clickedLink = event ? event.target : document.querySelector(`[onclick="showPage('${pageId}')"]`);
+  let clickedLink = null;
+  if (typeof event !== 'undefined' && event !== null) {
+    clickedLink = event.target;
+  } else {
+    clickedLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+  }
+
   if (clickedLink) {
     clickedLink.classList.add('active');
   }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  showPage('home');
+});
             // Add animation class to new page
             const activePage = document.getElementById(pageId);
             activePage.classList.add('fade-in');

@@ -792,21 +792,21 @@ box-sizing: border-box;
     </div>
 
     <ul class="nav-links">
-      <li><a href="#" onclick="showPage('home',event)" class="nav-link active">HOME</a></li>
-      <li><a href="#" onclick="showPage('about',event)" class="nav-link">ABOUT ME</a></li>
-      <li><a href="#" onclick="showPage('projects',event)" class="nav-link">PROJECTS</a></li>
-      <li><a href="#" onclick="showPage('thoughts',event)" class="nav-link">MY THOUGHTS</a></li>
-      <li><a href="#" onclick="showPage('contact',event)" class="nav-link">CONTACT</a></li>
+      <li><a href="#" onclick="showPage('home')" class="nav-link active">HOME</a></li>
+      <li><a href="#" onclick="showPage('about')" class="nav-link">ABOUT ME</a></li>
+      <li><a href="#" onclick="showPage('projects')" class="nav-link">PROJECTS</a></li>
+      <li><a href="#" onclick="showPage('thoughts')" class="nav-link">MY THOUGHTS</a></li>
+      <li><a href="#" onclick="showPage('contact')" class="nav-link">CONTACT</a></li>
     </ul>
 
     <div class="mobile-menu">☰</div>
 
   <div class="mobile-nav">
-    <a href="#" onclick="showPage('home',event)">Home</a>
-    <a href="#" onclick="showPage('about',event)">About</a>
-    <a href="#" onclick="showPage('projects',event)">Projects</a>
-    <a href="#" onclick="showPage('thoughts',event)">Thoughts</a>
-    <a href="#" onclick="showPage('contact',event)">Contact</a>
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('about')">About</a>
+    <a href="#" onclick="showPage('projects')">Projects</a>
+    <a href="#" onclick="showPage('thoughts')">Thoughts</a>
+    <a href="#" onclick="showPage('contact')">Contact</a>
   </div>
     </div>
 </nav>
@@ -1231,269 +1231,35 @@ From energizing morning blends to post-gym power-ups, each smoothie is crafted w
         </div>
     </div>
 
-    <script>
-        // Navigation functionality
-    function showPage(pageId, event = null) {
-  const pages = document.querySelectorAll('.page');
-  pages.forEach(page => {
+   <script>
+        function showPage(pageId) {
+  // Hide all sections
+  document.querySelectorAll('.page').forEach(page => {
     page.classList.remove('active');
   });
 
-  document.getElementById(pageId).classList.add('active');
+  // Show the target section
+  const target = document.getElementById(pageId);
+  if (target) {
+    target.classList.add('active');
+    target.classList.add('fade-in');
+  }
 
-  const navLinks = document.querySelectorAll('.nav-link');
-  navLinks.forEach(link => {
+  // Remove active class from all nav links
+  document.querySelectorAll('.nav-links a').forEach(link => {
     link.classList.remove('active');
   });
 
-  let clickedLink = null;
-  if (event) {
-  clickedLink = event.target;
-}
-
-  if (clickedLink) {
-    clickedLink.classList.add('active');
+  // Add active class to the clicked nav link (desktop)
+  const link = document.querySelector(`.nav-links a[onclick*="${pageId}"]`);
+  if (link) {
+    link.classList.add('active');
   }
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  showPage('home');
-});
-            // Add animation class to new page
-            const activePage = document.getElementById(pageId);
-            activePage.classList.add('fade-in');
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Smooth scrolling for scroll indicator
-        document.querySelector('.scroll-indicator').addEventListener('click', function() {
-            window.scrollBy({
-                top: window.innerHeight - 100,
-                behavior: 'smooth'
-            });
-        });
-
-        // Form submission handling
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
-
-            // Simple form validation and success message
-            if (name && email && subject && message) {
-                alert(`Thank you, ${name}! Your message has been sent successfully. I'll get back to you soon.`);
-                this.reset();
-            } else {
-                alert('Please fill in all fields.');
-            }
-        });
-
-        // Mobile menu functionality
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-
-        mobileMenu.addEventListener('click', function() {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            navLinks.style.flexDirection = 'column';
-            navLinks.style.position = 'absolute';
-            navLinks.style.top = '100%';
-            navLinks.style.left = '0';
-            navLinks.style.right = '0';
-            navLinks.style.background = 'rgba(26, 26, 26, 0.95)';
-            navLinks.style.padding = '1rem';
-            navLinks.style.backdropFilter = 'blur(10px)';
-        });
-
-        // Add scroll animations
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.project-card, .thought-card, .skill-item');
-            
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.style.animation = 'fadeIn 0.6s ease-in forwards';
-                }
-            });
-        }
-
-        window.addEventListener('scroll', animateOnScroll);
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set home as active page
-            showPage('home');
-            
-            // Initialize scroll animations
-            animateOnScroll();
-
-            // Add typewriter effect to hero title
-            const heroTitle = document.querySelector('.hero-title');
-            const text = heroTitle.textContent;
-            heroTitle.textContent = '';
-            
-            let i = 0;
-            function typeWriter() {
-                if (i < text.length) {
-                    heroTitle.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 100);
-                }
-            }
-            
-            // Start typewriter effect after a short delay
-            setTimeout(typeWriter, 500);
-
-            // Add random floating particles
-            createFloatingParticles();
-        });
-
-        // Create floating particles effect
-        function createFloatingParticles() {
-            const particleContainer = document.createElement('div');
-            particleContainer.style.position = 'fixed';
-            particleContainer.style.top = '0';
-            particleContainer.style.left = '0';
-            particleContainer.style.width = '100%';
-            particleContainer.style.height = '100%';
-            particleContainer.style.pointerEvents = 'none';
-            particleContainer.style.zIndex = '-1';
-            document.body.appendChild(particleContainer);
-
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'absolute';
-                particle.style.width = Math.random() * 4 + 2 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.background = Math.random() > 0.5 ? 
-                    'rgba(59, 130, 246, 0.3)' : 'rgba(239, 68, 68, 0.3)';
-                particle.style.borderRadius = '50%';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                
-                // Random animation
-                const duration = Math.random() * 20 + 10;
-                particle.style.animation = `float ${duration}s ease-in-out infinite, 
-                                          fadeIn 2s ease-in-out infinite alternate`;
-                
-                particleContainer.appendChild(particle);
-            }
-        }
-
-        // Add intersection observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeIn 0.8s ease-out forwards';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all animatable elements
-        document.addEventListener('DOMContentLoaded', function() {
-            const animatableElements = document.querySelectorAll(
-                '.project-card, .thought-card, .contact-item, .about-text, .skills-grid'
-            );
-            
-            animatableElements.forEach(el => {
-                observer.observe(el);
-            });
-        });
-
-        // Add mouse trail effect
-        let mouseTrail = [];
-        document.addEventListener('mousemove', function(e) {
-            mouseTrail.push({x: e.clientX, y: e.clientY, time: Date.now()});
-            
-            // Limit trail length
-            if (mouseTrail.length > 15) {
-                mouseTrail.shift();
-            }
-            
-            // Remove old trail points
-            mouseTrail = mouseTrail.filter(point => Date.now() - point.time < 1000);
-        });
-
-        // Add keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            const pages = ['home', 'about', 'projects', 'thoughts', 'contact'];
-            const currentPageElement = document.querySelector('.page.active');
-            const currentPageId = currentPageElement.id;
-            const currentIndex = pages.indexOf(currentPageId);
-            
-            if (e.key === 'ArrowRight' && currentIndex < pages.length - 1) {
-                showPage(pages[currentIndex + 1]);
-            } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
-                showPage(pages[currentIndex - 1]);
-            }
-        });
-
-        // Add dynamic theme based on time
-        function updateThemeBasedOnTime() {
-            const hour = new Date().getHours();
-            const body = document.body;
-            
-            if (hour >= 6 && hour < 18) {
-                // Day theme - slightly lighter
-                body.style.filter = 'brightness(1.1)';
-            } else {
-                // Night theme - slightly darker
-                body.style.filter = 'brightness(0.9)';
-            }
-        }
-
-        // Update theme on load and every hour
-        updateThemeBasedOnTime();
-        setInterval(updateThemeBasedOnTime, 3600000);
-
-        // Add Easter egg - Konami code
-        let konamiCode = [];
-        const konamiSequence = [
-            'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
-            'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
-            'KeyB', 'KeyA'
-        ];
-
-        document.addEventListener('keydown', function(e) {
-            konamiCode.push(e.code);
-            if (konamiCode.length > konamiSequence.length) {
-                konamiCode.shift();
-            }
-            
-            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
-                // Easter egg activated!
-                document.body.style.animation = 'rainbow 2s linear infinite';
-                setTimeout(() => {
-                    document.body.style.animation = '';
-                }, 5000);
-                
-                // Add rainbow animation
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes rainbow {
-                        0% { filter: hue-rotate(0deg); }
-                        100% { filter: hue-rotate(360deg); }
-                    }
-                `;
-                document.head.appendChild(style);
-                
-                konamiCode = [];
-            }
-        });
-    </script>
+   </script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const menuBtn = document.querySelector('.mobile-menu');
